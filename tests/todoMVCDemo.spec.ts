@@ -53,8 +53,10 @@ test.describe('Feature: Todo functionality', () => {
 
     test('should remove todo from list', async () => {
       await todoMVCDemoPage.addTodo('Mow the lawn');
-      await todoMVCDemoPage.deleteTodoByName('Mow the lawn');
+      await todoMVCDemoPage.verifyTodoInputIsEmpty();
 
+      await todoMVCDemoPage.deleteTodoByName('Mow the lawn');
+      await todoMVCDemoPage.verifyTodosListIsEmpty();
     })
   })
 });

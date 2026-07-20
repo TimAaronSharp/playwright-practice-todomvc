@@ -5,12 +5,16 @@ export class TodoMVCDemoPage {
     readonly todoInput: Locator;
     readonly createdTodo: Locator;
     readonly todoListContainer: Locator;
+    readonly todoRows: Locator;
+    readonly deleteButton: Locator;
 
     constructor(page: Page) {
         this.page = page;
         this.todoInput = this.page.getByRole('textbox', { name: "What needs to be done?" });
         this.createdTodo = this.page.getByTestId('todo-title');
         this.todoListContainer = this.page.locator('.main');
+        this.todoRows = this.page.getByTestId('todo-item');
+        this.deleteButton = this.page.getByRole('button', { name: 'Delete' });
     }
 
     async goto() {
@@ -40,6 +44,10 @@ export class TodoMVCDemoPage {
     }
 
     async deleteTodoByName(todoName: string, todoIndex: number = 0) {
-        // const matchingTodos = this.page.locator()
+        const matchingTodoRows = this.todoRows.filter({ hasText: todoName })
+        const targetTodoRow = matchingTodoRows.nth(todoIndex);
+
+        await targetTodoRow.hover();
+        await this.deleteButton.click();
     }
 }

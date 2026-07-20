@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { TodoMVCPage } from '../pages/todoMVC';
+import { TodoMVCDemoPage } from '../pages/TodoMVCDemo';
 import { todo } from 'node:test';
 
 /* Playwright automatically prefixes any relative paths in page.goto()
@@ -22,27 +22,34 @@ test.describe('Home page metadata', () => {
 });
 
 test.describe('Feature: Todo functionality', () => {
-  let todoMVCPage: TodoMVCPage;
+  let todoMVCDemoPage: TodoMVCDemoPage;
 
   test.beforeEach(async ({ page }) => {
-    todoMVCPage = new TodoMVCPage(page);
-    await todoMVCPage.goto();
+    todoMVCDemoPage = new TodoMVCDemoPage(page);
+    await todoMVCDemoPage.goto();
+    await todoMVCDemoPage.verifyTodoInputIsEmpty();
+    await todoMVCDemoPage.verifyTodosListIsEmpty();
   });
+
   test.describe('Adding todos to list', async () => {
 
     test('should append a newly created todo to the bottom of the list', async () => {
-      await todoMVCPage.addTodo('Mow the lawn');
-      await todoMVCPage.verifyTodoInputIsEmpty();
-      await todoMVCPage.verifyTodosHaveBeenCreated(['Mow the lawn']);
+      await todoMVCDemoPage.addTodo('Mow the lawn');
+      await todoMVCDemoPage.verifyTodoInputIsEmpty();
+      await todoMVCDemoPage.verifyTodosHaveBeenCreated(['Mow the lawn']);
     });
 
     test('should append multiple newly created todos to the bottom of the list', async () => {
-      await todoMVCPage.addTodo('Mow the lawn');
-      await todoMVCPage.addTodo('Call the plumber');
-      await todoMVCPage.addTodo('Do the dishes');
+      await todoMVCDemoPage.addTodo('Mow the lawn');
+      await todoMVCDemoPage.addTodo('Call the plumber');
+      await todoMVCDemoPage.addTodo('Do the dishes');
 
-      await todoMVCPage.verifyTodoInputIsEmpty();
-      await todoMVCPage.verifyTodosHaveBeenCreated(["Mow the lawn", "Call the plumber", "Do the dishes"]);
+      await todoMVCDemoPage.verifyTodoInputIsEmpty();
+      await todoMVCDemoPage.verifyTodosHaveBeenCreated(["Mow the lawn", "Call the plumber", "Do the dishes"]);
     })
+
+    // test('should mean the list of todos is not empty', async () =>{
+    //   await todoMVCDemoPage.addTodo()
+    // })
   });
 });

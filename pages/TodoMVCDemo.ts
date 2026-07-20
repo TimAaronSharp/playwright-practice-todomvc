@@ -1,14 +1,16 @@
 import { expect, type Locator, type Page } from '@playwright/test';
 
-export class TodoMVCPage {
+export class TodoMVCDemoPage {
     readonly page: Page;
     readonly todoInput: Locator;
     readonly createdTodo: Locator;
+    readonly todoListContainer: Locator;
 
     constructor(page: Page) {
         this.page = page;
         this.todoInput = this.page.getByRole('textbox', { name: "What needs to be done?" });
         this.createdTodo = this.page.getByTestId('todo-title');
+        this.todoListContainer = this.page.locator('.main');
     }
 
     async goto() {
@@ -30,7 +32,11 @@ export class TodoMVCPage {
         await expect(this.createdTodo).toHaveText(expectedTodos);
     }
 
+    async verifyTodosListIsEmpty() {
+        await expect(this.todoListContainer).toBeHidden();
+    }
+
     async deleteTodoByName(todoName: string, todoIndex: number = 0) {
-        const matchingTodos = this.page.locator()
+        // const matchingTodos = this.page.locator()
     }
 }

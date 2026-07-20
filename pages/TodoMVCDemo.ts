@@ -28,6 +28,9 @@ export class TodoMVCDemoPage {
     }
 
     async verifyTodosHaveBeenCreated(expectedTodos: string[]) {
+        /* NOTE toBeVisible() check is a "fast fail" check to verify that if the app has broken so badly
+        that it fails immediately and doesn't waste time checking for todo items that aren't there. */
+        await expect(this.todoListContainer).toBeVisible();
         await expect(this.createdTodo).toHaveCount(expectedTodos.length);
         await expect(this.createdTodo).toHaveText(expectedTodos);
     }

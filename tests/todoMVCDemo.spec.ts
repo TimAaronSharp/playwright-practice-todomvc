@@ -46,10 +46,6 @@ test.describe('Feature: Todo functionality', () => {
 
       await todoMVCDemoPage.verifyTodoInputIsEmpty();
       await todoMVCDemoPage.verifyTodosHaveBeenCreated(["Mow the lawn", "Call the plumber", "Do the dishes"]);
-    })
-
-    // test('should mean the list of todos is not empty', async () =>{
-    //   await todoMVCDemoPage.addTodo()
-    // })
+    });
   });
 });

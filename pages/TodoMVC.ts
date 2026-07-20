@@ -2,13 +2,11 @@ import { expect, type Locator, type Page } from '@playwright/test';
 
 export class TodoMVCPage {
     readonly page: Page;
-    readonly todo: string;
     readonly todoInput: Locator;
     readonly createdTodo: Locator;
 
-    constructor(page: Page, todo: string) {
+    constructor(page: Page) {
         this.page = page;
-        this.todo = todo;
         this.todoInput = this.page.getByRole('textbox', { name: "What needs to be done?" });
         this.createdTodo = this.page.getByTestId('todo-title');
     }
@@ -28,6 +26,7 @@ export class TodoMVCPage {
     }
 
     async verifyTodosHaveBeenCreated(expectedTodos: string[]) {
-
+        await expect(this.createdTodo).toHaveCount(expectedTodos.length);
+        await expect(this.createdTodo).toHaveText(expectedTodos);
     }
 }

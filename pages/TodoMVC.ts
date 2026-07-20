@@ -29,4 +29,8 @@ export class TodoMVCPage {
         await expect(this.createdTodo).toHaveCount(expectedTodos.length);
         await expect(this.createdTodo).toHaveText(expectedTodos);
     }
+
+    async deleteTodoByName(todoName: string, todoIndex: number = 0) {
+        const matchingTodos = this.page.locator()
+    }
 }

@@ -1,6 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { TodoMVCDemoPage } from '../pages/TodoMVCDemo';
-import { todo } from 'node:test';
+
+/*NOTE Will come back to this an incorporate custom fixtures.*/
 
 /* Playwright automatically prefixes any relative paths in page.goto()
 with the baseURL defined in playwright.config.ts.

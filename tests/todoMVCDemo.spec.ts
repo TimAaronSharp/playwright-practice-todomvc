@@ -67,6 +67,16 @@ test.describe('Feature: Todo functionality', () => {
 
       await todoMVCDemoPage.deleteTodoByName('Mow the lawn');
       await todoMVCDemoPage.verifyTodosHaveBeenCreated(['Call the plumber', 'Do the dishes']);
+    });
+
+    test('should remove the second/middle todo from list when deleting second todo', async () => {
+      await todoMVCDemoPage.addTodo('Mow the lawn');
+      await todoMVCDemoPage.addTodo('Call the plumber');
+      await todoMVCDemoPage.addTodo('Do the dishes');
+      await todoMVCDemoPage.verifyTodoInputIsEmpty();
+
+      await todoMVCDemoPage.deleteTodoByName('Call the plumber');
+      await todoMVCDemoPage.verifyTodosHaveBeenCreated(['Mow the lawn', 'Do the dishes']);
     })
   });
 });

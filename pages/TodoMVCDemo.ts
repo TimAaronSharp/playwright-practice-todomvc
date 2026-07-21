@@ -22,7 +22,14 @@ export class TodoMVCDemoPage {
     }
 
     async addTodo(todo: string) {
-        await this.todoInput.click();
+        /* NOTE .click() is not needed here (and can potentially cause test flakiness
+        if the scale of the project is complex enough, such as if it tries to click
+        before the element is visible) and is actually already wrapped inside the 
+        .fill(). .fill() will, 1. Scroll the element into view. 
+        2. Verify the element is visible and stable. 
+        3. Automatically clicks/focuses the element like a human user would.*/
+
+        // await this.todoInput.click();
         await this.todoInput.fill(todo);
         await this.todoInput.press('Enter');
     }
